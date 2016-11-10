@@ -1,8 +1,23 @@
-<nav class="">
-    <ul>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+        
         <li> <%= link_to "Store Home", store_path %> </li>
-        <% if !!@cart %>
-          <li> <%= link_to "Cart", cart_path(current_cart) %></li>
+
+        <% if current_user %>
+          <%= "Signed in as #{current_user.email}" %>
+          <li><%= link_to "Sign out", destroy_user_session_path, :method => "delete" %></li>
+        <% else %>
+          <li> <%= link_to "sign in", new_user_session_path %></li>
+          <li><%= link_to "Sign up", new_user_registration_path %></li>
         <% end %>
-    </ul>
-</nav>
+
+        <% if current_user && current_user.current_cart %>
+          <li> <%= link_to "Cart", cart_path(current_user.current_cart) %></li>
+        <% end %>
+
+        </ul>
+      </div>
+     </div>
+  </nav>
